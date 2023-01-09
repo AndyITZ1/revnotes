@@ -27,6 +27,29 @@
 - RDS, which is the Relational Database Service, which creates a virtual, scalable relational database. Through this service we can have an environment that can host a database and has support for different types of RDBMS, and multiple people can connect to the database using this service.
 
 ---
+## React Code/NPM commands
+- To create a React app (w/ TypeScript), all the folders necessary for React application we use the following command:
+```
+npx create-react-app app-name --template typescript
+```
+- To install any dependencies we use the npm install comand and the dependencies' names
+```
+// Both lines are installing packages
+npm install typescript react-router-dom 
+npm i react-redux redux
+```
+- One neat thing about `npm install` is that if we have dependencies or packages that are not yet installed and it is listed in the `package.json` file, then the `npm install` command will automatically install those packages/dependencies as well as still installing the package(s) you explicitly wrote.
+- To start your React application we use the start command
+```
+npm start
+```
+```
+// This is not the start command, read BELOW!
+npm run build
+```
+- To run the build field from the `package.json` file, which contains how your application will be structured file/folder-wise when deployed
+- IT SHOULD BE NOTED, that every command excluding `npx` one should be executed/ran in the React app's folder (that was created using `npx`). 
+---
 ## React/TypeScript/JS
 
 ### What is NodeJS?
@@ -38,6 +61,12 @@
 - npm or Node Package Manager is a built-in software package manager that comes with NodeJS and is utilized by developers to share software in the form of code packages. Users can use npm to download and install frameworks and libraries for development stored in npm's software registry using specific npm or npx commands in a command line client. 
 - **React and its dependencies are installed using npm and ran on a NodeJS environment, which is why we need both of them when using React.**
 
+### What is the package.json file?
+- **package.json** is a file usually found in the project root and the file itself is used to give information to npm that allows it to identify the project and handle project dependencies. In general, it contains **metadata** relevant to the project, such as project description, project verision, licenses, the author, any scripts, project name, the main entry point, **dependencies** and **devdependencies**.
+- **dependencies** section of the file contains the list of packages/modules installed using npm that are required to run the project.
+- **devDependencies** section, contains a list of packages/modules that are required only for development and these are usually install only on the developer's machine. So they not be run for production build.
+
+
 ### What is React?
 - **React** is lightweight JS library created by Facebook and it is use for creating front end user interfaces in the form of **Single Page Applications**. A React application is made up of **components**, which are different pieces that move in and out to create the view, which is what the user sees. We can think of components as building blocks for a web page. For single page applications this is in the sense that components will be removed and added or replace with others to do different functionalities on a single web page. 
 - React **does not utilize HTML files**, but rather is written within JSX or TSX files using JSX/TSX which is a markup language specific to React being used with JavaScript/TypeScript. JSX and TSX is similar and mostly looks like HTML, but has some subtle syntatical differences. One being that the `class` attribute in HTML is written or used in JSX/TSX as `className`.
@@ -46,6 +75,15 @@
 ### What are disadvantages to using React?
 - React is updated frequently, so **concerns about forward compatibility** should be taken into account when version changes. This does not just refer to syntax changes in React but also how reliable are sources if the React used in the sources are outdated.
 - React while being flexible, it **can have many moving parts in a bigger React application** meaning that to understand how an application works we have to understand the anatomy of it and how everything works together.
+
+### What is the React Virtual DOM?
+- When rendering components from a React application, we interject these components into the root HTML element which is what is displayed on our page. However this process, requires that we manipulate the DOM (Document Object Model) which is the tree layout structure that shows how an HTML page is setup and is usable to JS/TS through the `document` object. When we manipulate the DOM it can be **time consuming**, **resource intensive**, and overall we have to re-render the DOM, which means we basically reload all pieces of the DOM with each edit to the DOM. This results in a slow process issue as doing one thing to edit DOM results in the whole DOM being rebuilt or reloaded for at least the same elements and the addition of one change. 
+- To work around the inefficiency of manipulating the DOM, React has a corresponding **virtual DOM** for every DOM object. A **virtual DOM** object has the same properties as the real DOM object, but it lacks the power to directly change what's on the screen. However this is the benefit, as manipulating the virtual DOM is much faster and nothing is drawn onscreen. The reason why we want to edit the virtual DOM object is that we want to record all the changes and update when rendering a JSX element into it. After we record the change, a pre-update version of the virtual DOM is used to compare with the newly changed virtual DOM, this lets React know what DOM objects have changed (this is called **diffing**). With this information, React can update only the necessary parts of the actual DOM to reflect the changes from adding a JSX element instead of having to rebuild or reload every DOM object. In terms, a virtual DOM is a lightweight copy of the actual DOM that allows recording of changes made to a DOM by adding a JSX element. The actual updating of the real DOM is only done once React figures out the necessary changes that need to be made to the DOM.
+
+### What is TSX (TypeScript XML)?
+- TypeScript XML or TSX is used to create the template or the view for React components. It looks like HTML when written, but has it owns syntax. TSX code is what is injected into the virtual DOM, and then displayed on the browser. 
+- For our TSX elements that need to be returned for one component to be displayed, we wrap all the "returned" elements in one element. The reason why we do this is that when React tries to create all the TSX elements for a component it expects to only create one element and not multiple at the same level. Which can cause a React syntax error to pop up. To avoid this error we wrap all TSX elements into one element and this element can be like a div or a React.Fragment. 
+- Depending on whether you use a div or React.Fragment, you may add an extra DOM element (div).
 
 ### What is a single page application (SPA)?
 - A SPA is web application that fits on a single page in the browser. This means that with a single page load the browser will retrieve all the necessary JavaScript/TS, HTML, and CSS code. When we **navigate** between pages, the content of the page is changed however this is being without refreshing the whole page.
@@ -85,6 +123,30 @@
 - A class-based component is simply a ES6 class which can be either a JavaScript or TypeScript class depending which language is used. And that class specifically extends `React.Component` which inherits the properties needed to make a class-component. 
 - Class components can have variables or maintains its own data with **state**, can accept **props** which can be used in a constructor() function, and must have have a render() function which returns a React element which is written in JSX/TSX. 
 
+```TS
+import React, {Component} from "react";
+
+export class SomeComponent extends React.Component<any, any> {
+
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            color: props.color,
+            animal: props.animal
+        };
+    }
+
+    render() {
+        return (
+            <div>
+                <p>JSX/TSX here</p>
+            </div>
+        )
+    }
+}
+
+```
 ### What is the lifecycle of a class component?
 - React class components have a lifecycle, when they are created. Each step of the lifecycle can be accessed in the form of methods designed for class components. 
 - The lifecycle consist of mounting, updating and unmounting of a class component. 
@@ -92,13 +154,28 @@
     - `constructor`, which is primarily used to initialize data in the component, this means the state object.
     - `componentDidMount` is used for grabbing some data after the page loads.
     - `componentDidUpdate` allows use to executed when a component updates its view.
-    - `componentDidUnmount` is used for cleanup when the component leaves the view.
+    - `componentWillUnmount` is used for cleanup when the component leaves the view.
 
 ### What is a function component?
 - A function component is a written as a function in JS/TS. Prior to React version 16.8, function components were limited in what they could do compare to class components. This meant that most React application built prior used mainly class components and sometimes function components. One feature that was not a part of function components then, were the ability to have state. With the introduction of **hooks** in React 16.8, function components can now have state and other features that makes it capable of doing the same thing as class components now. 
 - Today, function components are used more often because they are more simple, flexible, and straightforward to write compared to class components. Along with that, using hooks makes function components powerful in being able to do the same things as a class component such as having states. 
 - Unlike class components, which require extending React.Component to make a class an actual valid component. Functions can be valid React components as long as they return JSX/TSX code which is what is also return in class components by the render() method.
 
+```TS
+import React from "react";
+
+const SomeComponent: React.FC<any> = (props: any) => {
+    const [state, setState] = useState("");
+
+    return (
+        <div>
+            <p>JSX/TSX here</p>
+        </div>
+    )
+}
+
+
+```
 ### What is data binding?
 - Data binding is the process of connecting the view element or user interface, with the data which populates it from the component. Specifically in React we have one-way data binding, which means that if we change data in the component's logic it will be reflected in the view or if we change data in the view then it would be reflected in the component's logic. 
 - To actually do data binding, we put data we stored in a component, this can be from the state or a variable inside curly braces into the JSX/TSX we are returning which will be render as the view.
@@ -207,6 +284,21 @@ axios.post('urlHere', {
 .then((res) => console.log(res))
 .catch((err) => console.log(err));
 ```
+
+
+### What is problem with Application State Management in React?
+- We know that all data in React flows only one way. So this can be tricky to try sharing **state** among multiple components.
+    - A state is a built-in React object that lets us store data in a component that we can send to other components. 
+- We can resolve this issue with 3 possible solutions:
+    1. **Lifting State**, this can become complicated quickly 
+    2. **React Context API**, this is a built-in centralized data store for React (useContext hook)
+    3. **Using the Flux Design Pattern through React Redux**
+- The advantages of using Flux Design Pattern include:
+    - Ability to manage state in one centralized place, this can be one file that will store all the application's states, and no longer store state in each individual component. The file will be a globally accessible place to get data/state.
+    - We can easily handle more complex data flows, as now we only have to pull and change data from the same place instead of navigating between different components like with **lifting state** and **prop drilling**
+    - We have **more intuitive communication** between components and non-hierarchical data
+    - Leveraging/utilizing unidirectional as an advantage and not an obstacle.
+
 
 ---
 ### What are JavaScript modules (same in TypeScript)?
@@ -358,6 +450,11 @@ function raiseError(message: string): never {
 ### How do classes work in TS?
 - TS has object-orient programming which means it has support for classes. TS classes are similar to Java in terms of having fields, a constructor, functions, and to declare a new object we use the `new` keyword with the class constructor. Also similar to Java in that it has inheritance such as using the `extends` keyword for inheriting other classes and `implements` keyword to inherit interfaces. 
 - There are however slight differences, one being that the constructor in TS is written as the literal word "constructor" for the naming of the class constructor
+
+### How do constructors work in TS?
+- Constructors in TS work like Java constructors but require a call to `super()` explicitly. The `super()` is also what allows for us to use the `this` reference to an instance, without `super()` we cannot use `this`. 
+- In React specifically, props passed into a constructor must be also passed in `super()`, in order for it to be usable in the context of the `this` keyword. `super(props)` will assign/set the props as a property of the instance of the component and this makes it usable outside of `render()` and `constructor()` in class components.
+- Similarly to store a value for an instance we may refer to those values from the `this` reference/object, so in general we should pass any values (props in React) to the `super()` to use it as `this.valueName` (`this.props` for React props)
 
 ### What are decorators in TS?
 - Decorators are a way to provide additional functionality to your code. Decorators can be attached to classes, functions, properties, parameters, or accessors. When attaching a declarator we use the @ symbol and the expression or decorator name  and this can be written inline or above the class/function/accessor/property/or parameter you are attaching it to. 
