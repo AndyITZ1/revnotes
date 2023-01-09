@@ -296,4 +296,27 @@ function raiseError(message: string): never {
 - There are however slight differences, one being that the constructor in TS is written as the literal word "constructor" for the naming of the class constructor
 
 ### What are decorators in TS?
-- Decorators in TypeScript, 
+- Decorators are a way to provide additional functionality to your code. Decorators can be attached to classes, functions, properties, parameters, or accessors. When attaching a declarator we use the @ symbol and the expression or decorator name  and this can be written inline or above the class/function/accessor/property/or parameter you are attaching it to. 
+- The decorator's name or expression evaluates to a function that will decorate the thing it is attached to. Decorate here means to either modify, observe or replace something about a the decorated thing.
+
+### What are access modifiers in TS?
+- Access modifiers in object-oriented programming and in TypeScript is used to control the visibility of data members in a class. 
+- There are three types of access modifiers in TS public, private, and protected
+- By default when no access modifier is specified for a data member, `public` modifier is the default modifier for that data member. 
+-`public` allows for a data member to be accessible from anywhere
+- `protected` alllows for a data member to be only accessible from within the same class and within subclasses
+- `private` allows for accessibility in the same class only
+- If you try to access a data member outside of the access scope it restricts to then an error will shown at compile time.
+
+### What is the **`readonly`** keyword?
+- In TypeSript, `readonly` is used to make a property as "read-only" in a class or interface. Essentially "read-only" means to make a property immutable and we can make a readonly declaration when declaring the property. A property is defined as a field or variable that stores data fro a class. So readonly can only be applied to fields and not methods of a class. 
+- Since readonly fields can be accessed outside of a class, but their values cannot be changed. You can only initialize a readonly property during its initial declaration or initialize it in the constructor. This also 
+
+### What is another way to make a value read-only?
+- You can use getters, getters are functions that allow you to retrieve the data that is stored away in the object's class, with the private access modifier being declared on that data. Without the getter function we would not be able to retrieve the value/field that has been declared with `private`. 
+- By doing this and omitting the setter function we can achieve a read-only property for a class which means that we can see that data stored, but not change it at all. 
+
+### 'readonly' keyword vs Getters
+- Getters are functions used to retrieve a class's field data, whereas `readonly` is a modifier keyword
+- The purpose of getters is to get data that isn't retrievable normally by calling the fields name from the object.
+- `readonly` allows for the calling of the field's name from the object but does not allow changes to be made to the field. 
