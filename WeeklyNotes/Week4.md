@@ -243,4 +243,210 @@ div~p {
 ## JavaScript
 
 ### What is JS?
-- JavaScript is a high-level programming language generally used for front
+- JavaScript is a high-level programming language generally used for front-end development. JS has built-in support in all web browsers. 
+
+### What are other features of JS?
+- JS can be used as a server side language through NodeJS which is a JS runtime environment. JS is multi-paradigm which means it can do various styles of programming including object-oriented programming, procedural and functional programming. jS is also **loosely-typed** meaning that we don't need to define variables to use them.
+
+### What specification does JS follow?
+- JavaScript follows an official language specification called **ECMAScript** which is also used as an identifier for what JS version is being used like ES6, ES7. 
+
+### How do you link JavaScript usage to HTML documents?
+- HTML supports the use of JavaScript through the `<script>` tag, allowing for raw JS to be put in the HTML document or generally you will just link a path to an external JS using the same tag. The placement of the `<script>` tag in HTML can either go in the `<head>` section or at very bottom of the `<body>` section. Preferably the `<script>` tag for JS should go at the bottom of the `<body>` section to prevent errors from compiling JS scripts where certain elements accessed by scripts are not rendered prior to the script if the script is placed in the head. Along with that, if JS scripts are linked in the head then they are executed prior to the body section and it DOM construction, which can cause delays to loading content due to scripts running first. 
+
+### What are features in JS syntax?
+- Comments in JS are the same as Java.
+- In JavaScript, values are represented through JavaScript literals, which are **fixed values** that a user can provide and this is not a variable but the **literal** value. JavaScript does contain keywords like many other programming languages which are reserved. Unlike Java, the use of semicolons to end of a line are optional.
+
+### What are the different types of JavaScript literals?
+- **Integer literals**, which are numeric values with no fractional parts and these values can be written in different bases (base 10, base 8, and base 16)
+- **Floating-point literals**, which are also a subcategory with integer literals under the grouping of **numeric literals**, are numeric values can include fractional parts like decimal values and even exponent values are included as floating-point literals using the `e` to represent exponent in a value. 
+- **String literals** are a sequence of zero or more characters, which are enclosed in either single quotes or double quotes. String literals can be concatenated using the `+` operator.
+- **Array literals** are a list of elements contained in square brackets when written. If no value is passed into the brackets, then the array literal will create an empty array with zero length. 
+- **Boolean literals** in JavaScript have only two literal values, which are `true` and `false`.
+- **Object literals** are each a list of zero or more pairs of property names and associated values of an object, and this list is enclosed in curly brackets/braces '{}'. 
+- **RegExp literal** is a pattern enclosed between slashes. (This one is most likely not on QC)
+
+### How are variables defined/declared in JS?
+- Variables in JS, are like in other programming languages, where variables are used to store data values and this is done using the `=` assignment operator.
+- There are 3 ways to declare a variable in JS since the introduction of ES6. 
+- The first is using the `var` keyword, this was the default and only declaration prior to ES6 and is less used due to the way it is scoped. `var` keyword allows us to declare a function-scoped or globally-scoped variables
+- Second way is to use the `let` keyword similar to `var`, it is used to declare a variable but it is block-scoped rather than functional-scoped.
+- Third way is to use the `const` keyword, which unlike `var` and `let`, is used to declare a variable that can not be reassigned after it was assigned once. And it shares the same scope as `let` variables. 
+
+### What are data types used in JS?
+- There are 7 major data types for JS variables:
+    - **Number**, which includes integers and floating point 
+    - **String**, which are sequence(collection) of characters
+    - **Boolean**, truth or false
+    - **Null**, absence of value
+    - **Undefined**, value when a variable has not been assigned anything and only exists when a variable is declared.
+    - **Object**, objects are collections of key/value pairs, and are written in {}.
+    - **Symbol**, were introduced in ES6, though not used often, are objects with guaranteed to be uniqued when created and can unique properties that are hidden and prevents collision of other keys that might be added to an object. However, the same Symbol object wiil return if you provide a key when searching for a Symbol. 
+- There are other data types like BigInt (used to hold large integers beyond regular numbers), NaN(not a number), which is a value returned when a math operation goes wrong.
+- We can also identify a value's data type using the `typeof` keyword
+- Objects can have subtypes like Arrays (which are like Java ones, but difference), which can hold any number of different data types and their length is not fixed, and functions are also objects but with more functionality.
+
+### What are JS operators?
+- JavaScript have most operators similar to Java like arithmetic, logic, assignment, comparison, and ternary operators. However a couple of differences are like the `===` operator which is only in JS and it compares types **AND** values, while regular `==` compares only values.
+- The `==` operator in JS also performs type coercion, which is similar to type casting but can be different.
+- Ternary operators in JS are used for shorthanding IF-ELSE statements `condition ? value1 : value2`
+
+### How does control flow work in JS?
+- For most of the syntax, JS has the same loops and if-else syntax, switch, etc. However things that are specific to JS include the **for-in** and **for-of**, which respectively are used to loop through an object(for-in) and an array (for-of).
+```JavaScript
+let person = {
+    name: "Bob",
+    age: 25
+}
+for (let key in person) {
+    console.log(person[key]);
+}
+
+let arr = [12, "Susie", true, 0];
+for (let value of arr) {
+    console.log(value);
+}
+```
+### What is type coercion?
+- **Type coercion** is the process of converting a value from one data type to another. There two types of type coercion: explicit and implicit type coercion. 
+- Explicit type coercion is when we explicitly specify the data type we want a value to change to. Which we can surround the value to be changed with the data type name and parentheses to enclose the value. 
+- **Implicit type coercion** is where JS will assume and attempt to do the changing of a value if values aren't matching comparatively or used in a context where another data type is expected.
+- While this does seem similarly to type casting, there are slight nuances that are different in that programming languages like Java there might be a need to use a class to do the conversion instead of simply saying the data type you want to change to.
+
+### What is an example where type coercion is in action?
+```JS
+console.log("3" * 2); // it will return 6 since * is an arithmetic operator and strings aren't typically used to interact with arithmetic operators like *
+console.log("3" + 2); // returns a string "32", while + is an arithmetic operator it is also used for concatenating so we in the context working with strings JS will convert the 2 into a string to concatenate it.
+console.log(2 + "3" + 2); // here we will get "232" a string because again the + will have assumption of concatenation when working with strings
+console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still apply when multiple types of operators are used in this case * has higher precedence than + so when we do 2 * "3" we get a number 6 and then do 6 + 2 to get 8 and note that the "3" lost its string value due to type coercion
+```
+
+### What are truthy and falsy values?
+- In JS, any expression or value can be evaluated as a boolean. Therefore different values can evaluate to either true or false otherwise known as truthy and falsy values to describe values if they aren't inherently booleans.
+- There are 6 values/expression that return as false:
+    - boolean: false
+    - string: empty string 
+    - undefined
+    - null
+    - NaN
+    - 0
+- We can say that any values that are not these will evaluate to true, but the exception to this is that only the number 1 evaluates to true and not 2 when actually compared with the real boolean value `true`
+
+### How do functions work in JS?
+- Functions are lines of code grouped together to be callable or usable anywhere in the program.
+- In JS, functions are declared using the `function` keyword with the function's name and any parameters
+- Unlike Java, there are no explicit return types, but we can still return values using the `return`.
+- JS Functions can be used as objects and can be stored in variables.
+- There are various types of functions besides the standard function:
+    - **Anonymous functions**, which are functions without an identifier (no name)
+    - **Arrow functions** which are like lambdas in Java, and they are "one time use" functions that can be written inline. The specific difference from Java is the usage of the `=>` operator for the "arrow"
+    - **Callback functions** are functions that get passed into another function as a parameter, and then the original function executes the parameterized function. This can be used in writing asynchronous JS code, which is code that is not intended to follow or will perform in sequence with the normal source code that runs from top to bottom
+    - **Closures** are nested functions that were used to achieve encapsulation in JS, where they can access their outer function's variables/arguments, but can't change them.
+
+### What are the scopes in JS?
+- JS has two major division of scopes which are global and local. Global scoped variables are accessible anywhere in the application, while local scoped variables are accessible only in their current location, which can be defined by {} curly braces.
+- Local scope can be further divided into block scope and functional scope, where variables declared in a function are only accessible in that function and similarly variables declared in a block are only accessible in that block. 
+- However one exception to this rule are `var`-declared variables which are functional scoped meaning that despite being declared in a block they can be accessible outside that block, where as block-scoped variables like using the `let`/`const` keyword are restricted to the block.  
+
+### What is hoisting?
+- Hoisting is mechanism in JS that works in the background, to specifically move variables and function declarations moved to the top of their scope before code that uses them executes. It should be noted for variables, `var` declared variables will be hoisted but not `let`/`const` declared variables and also the values assigned to them are not hoisted in general, so they all will contain undefined values until the actual line of assignment is executed.
+
+### What is the **this** keyword?
+- **this** keyword in JS can refer to many different things:
+- It can refer to the global Object (the window object)
+- It can be used in event handlers where it represents the HTML element that receives the event
+- It can refer to an object involved in **object method binding** (like a constructor)
+
+### What is JS prototypal inheritance?
+- All JS objects have a prototype, which is implemented through the `__proto__` property, which is used to define inheritance in JS
+- The top-level prototype of all objects is Object.prototype, this is the value that is assigned to `__proto__` by default. 
+
+### How do JS classes work?
+- Classes are consider a special type of function in JS, class declarations are done with the `class` keyword and the class name.
+- You can also create classes with a class expression where you define a variable and then assign it an object with the `class` keyword
+- Like in Java, classes can have constructors 
+
+### What is DOM?
+- DOM is the Document Object Model, which is created when JS is attached to the HTML document. The HTML document with all of its elements is converted into a usable JS object called `document` that can be manipulated/interacted in JS code. 
+- The DOM is created to be like a "tree" where the root element `<html>` is the root of that tree and similarly all other HTML elements branches from the root. Each element in the HTML is an object in the DOM.
+
+### What are different ways we can interact with HTML through DOM?
+- In JS, we can access the DOM using the `document` object and we do operations like **DOM selection** and **DOM manipulation**.
+- DOM selection is accessing the elements from HTML through the DOM object with functions like `.getElementById("idName")`
+- DOM manipulation is changing the elements of the DOM during runtime with functions like `.setAttribute` and `.appendChild`.
+
+### What are events?
+- Events occur when user interaction takes place on the web page, such as clicking a button, hovering over something, or pressing a key on the keyboard. Events can be listened or detected using an **event handler** and through this we can perform some specific action. 
+- Some commonly used events:
+    - onclick - when a user clicks an element
+    - ondblclick - when a user double clicks an element
+    - onmouseover - when the mouse cursor goes over an element
+    - onload - when the browser finishes loading the web page
+    - onsubmit - when a form is submitted
+
+
+### What are EventListeners?
+- EventListener is what we used to detect events and perform some action. We can create/add an EventListener using the `addeventListener` function in JS.
+- The syntax of the addEventListener function includes parameters for an event, a function, and the a boolean value called `useCapture`
+    - event is the type of event being listened for
+    - function is the function/code to run when the event happens
+    - useCapture is the boolean value that is optional and is used to determine if the event handler should use **bubbling** or **capturing** for event propagation. This bubbling/capturing refers how to handle situations where multiple event handlers are listening to the same event (which one should run their function first). By default, the value is false (bubbling) if not specified.
+
+
+### What is event propagation?
+- Event propagation refers to the "traveling" of an event through all the DOM elements that it could be related to. (All nested elements from where event happened)
+- In order to set whether we want an event to start from inner to outwards or outer to inwards (bubbling/capturing) we use the `useCapture` parameter to be either false/true, where false is the default if we don't specify.
+
+### What is bubbling? Capturing?
+- Bubbling is when an event travels back up the DOM through all the elements again, where we start with event listening/handling with the innermost element then go through and trigger each next outer element. 
+- Capturing is when an event travel through the DOM, where outer elements will trigger their event listeners before inner elements all the way down to the innermost element that triggered the event. 
+
+### How to stop propagation?
+- We can stop/interrupt propagation by `event.stopPropagation()` or `event.stopImmediatePropagation()`, where the difference is that the immediate one will prevent other listeners at the same level from triggering.
+
+### What is the Fetch API?
+- The Fetch API is a modern and versatile means of sending asynchronous requests.
+- We can use the fetch() method to return a **promise object**, and fetch() has parameters the URL for where the request is being handled and a configuration object which is optional but by default the fetch will be a GET request but the configuration object can change this. Configuration objects can define the request.
+- A **promise object** is a value that **may not yet be available, but will be resolved in the future**. Once a promise is created, it cannot be canceled before it's resolved.
+
+### What is flow for the Fetch API?
+- The browser sends a request to the server and creates a promise object for the response. If the request fails, then the promise is resolved an the Fetch API will reject the promise object and an error code is returned as the response. If there is a successful response, the promise is returned in the response body.
+
+### What are methods to access the response body?
+- `response.json()` - parses the response as JSON and returns a JS object
+- `response.text()` - returns the response as plain text
+- `response.formData()` - returns the response as a form data object
+- `response.blob()` - returns the response ats a BLOB (Binary Large Object)
+- `response.arrayBuffer()` - returns the response as an ArrayBuffer (low level representation of binary data)
+
+### What are methods that we can use upon fetching a request?
+- We can use `.then()` to typically parse through incoming data, `.catch()` to catch errors and provide error handling code, and `.finally()` is used for anything you want to happen after the previous actions complete.
+
+### What are keywords used for performing asynchronous actions?
+- `async` is used to tell functions to return a promise when run instead of a value 
+- `await` is used to make an asynchronous function pause until a promise is returned.
+
+### What are timing events?
+- Timing events are used to automate or run task after certain intervals of time. 
+- `setTimeout` takes a function and delays it call for some milliseconds. `setTimeout(function, 2000)`
+- `setInterval` takes a function and executes repetitively for intervals. `setInterval(function, 2000)`
+- Like other functions in JS, these can be stored in variables, and we can use these variables as arguments to `clearTimeout()` and `clearInterval()` to cancel of execution of either timing event functions. 
+
+### What is strict mode?
+- Strict mode was introduced in ES5, and was to restrict JS code in terms not allowing undefined variables, any keywords cannot be used as variable names, and other niche properties of JS. To set JS into strict mode, we declare in the code `use strict` and this can be used to apply for all code in a global scope or function scoped if only written in the function.
+
+
+### What are template literals?
+- **Template literals** were introduced in ES6 and provides an easy way of creating **multiline strings** and easy way for **string interpolation**. Basically template literals are string literals, but are different in that they are created with backticks and not quotes, and also they allow us to embed expressions/values using the $ with the value in {} curly braces
+- We can parse through template literals with a function using **tagged templates** which are functions that take in components of a template literal in the order of an array of string elements from the literal followed by each embedded value/expression in the literal as separate arguments. What we choose to do in the function that parses the template literal is up to what we want to perform with that data.
+
+### What are default parameters?
+- **Default parameters** allow us to have defined values for when a parameter of a function does not have a value provided to it when an argument is passed to that function. To use the default values we can choose to omit providing an argument for that parameter or pass in `undefined` as the argument for that parameter.
+- Default values for parameters are not limited to literals, we can use other parameters as default values.
+
+### What are spread and rest operators?
+- The spread operator and rest parameter was introduced in ES6 and they both utilized the three consecutive dot notation as the operator. The spread operator provides us the ability to expand iterable objects like an array into multiple individual elements. With that we can use the spread operator to combine arrays given we use standard array literals and use the spread operator for both arrays as the value of the array.
+- The rest parameter unlike the spread operator does not necessarily refer to splitting an iterable object, but used as a parameter inside a function to denote that there could be an indefinite number of parameters for a specific function. It should be noted that if the rest parameter is intended to be used, then it should be the last parameter listed in the parameter list for a function, otherwise an error will occur.
+
+
