@@ -422,11 +422,20 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 
 ### What are methods that we can use upon fetching a request?
 - We can use `.then()` to typically parse through incoming data, `.catch()` to catch errors and provide error handling code, and `.finally()` is used for anything you want to happen after the previous actions complete.
+- These functions are defined in the Promise API.
+- `then()` has two optional parameters `onFulfilled` and `onRejected`, which both are callback functions.
+    - When we pass in one callback function essentially we are using the first parameter, which means that we intend to use that function when processing a resolved promise. 
+- `catch()` is used when a rejected promise occurs or to handle errors thrown.
+    - it should be noted that `.catch()` internally calls `.then(null, errorHandler)`, here `errorHandler` is just used as a name to mean a function to handle error/promise rejection. 
+    - While it may call the `then()` function, we can still think of it to strictly handle promise rejections/errors
 
 ### What are keywords used for performing asynchronous actions?
-- `async` is used to tell functions to return a promise when run instead of a value 
-- `await` is used to make an asynchronous function pause until a promise is returned.
-
+- `async` is used to tell functions to return a promise when executed instead of a value 
+    - `async` is used before/(in front) of a function's declaration to make the function asynchronous.
+    - You technically do not need to use the `await` keyword with every `async` function. 
+- `await` is used to make an `async` function pause until a promise is returned.
+    - `await` keyword can only be used in `async` functions.
+    - Note that we can use `await` in front of non-Promise values, however `await` converts the value to a resolved Promise and waits for it. This conversion doesn't affect the value identity as long as it doesn't have a `then` property that is callable.
 ### What are timing events?
 - Timing events are used to automate or run task after certain intervals of time. 
 - `setTimeout` takes a function and delays it call for some milliseconds. `setTimeout(function, 2000)`
@@ -435,6 +444,14 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 
 ### What is strict mode?
 - Strict mode was introduced in ES5, and was to restrict JS code in terms not allowing undefined variables, any keywords cannot be used as variable names, and other niche properties of JS. To set JS into strict mode, we declare in the code `use strict` and this can be used to apply for all code in a global scope or function scoped if only written in the function.
+- Some restrictions in strict mode:
+    - No usage global variables or variables that are not explicitly defined by let/const/var.
+    - No setting properties on primitive values
+    - All function parameters must have unique names (no duplicates)
+    - Cannot delete a non-configurable or otherwise undeletable property
+        - `.prototype`
+        - `.length`
+    - Cannot assign to object properties that are non-writable data/getter-only accessor/new property on a non-extensible object.
 
 
 ### What are template literals?
@@ -449,4 +466,12 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 - The spread operator and rest parameter was introduced in ES6 and they both utilized the three consecutive dot notation as the operator. The spread operator provides us the ability to expand iterable objects like an array into multiple individual elements. With that we can use the spread operator to combine arrays given we use standard array literals and use the spread operator for both arrays as the value of the array.
 - The rest parameter unlike the spread operator does not necessarily refer to splitting an iterable object, but used as a parameter inside a function to denote that there could be an indefinite number of parameters for a specific function. It should be noted that if the rest parameter is intended to be used, then it should be the last parameter listed in the parameter list for a function, otherwise an error will occur.
 
+```TS
+let obj = {
+    p1: 1,
+    p2: 2
+};
+
+const cloneObj1 = {...obj};
+```
 

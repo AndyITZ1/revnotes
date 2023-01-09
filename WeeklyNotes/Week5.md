@@ -124,7 +124,13 @@
         - To use **useState** we have to declare a state variable and a mutator inside of square brackets, then we assign **useState** and a value to initialize state to a default value. 
         - In this syntax, the state variable is what holds the data and the mutator is a function that we can use to change that data stored.
         - Another thing about **useState** is that the state variable doesn't have to be an object like in class components meaning it can just hold a single primitive value. 
-    - **useEffect**
+    - **useEffect** allows you to perform some action during an application's life. This action or basically a callback function is run based on an interval. 
+        - This interval can be decided in 3 different situations:
+            1. The callback function is executed  **after every render** which occurs when a page loads in a component's view and this view can change or re-render when state(s) are changed.
+            2. **useEffect** hook has a second parameter which allows for a dependency array. If this array is empty (has no dependencies), then the callback function is executed once, which is after the initial page load of the component's view. That means also that if any states are changed and there is re-rendering, then still the callback function will not be called. **As it is not dependent on any state.**
+            3. If the **dependency array** has a dependency or multiple dependencies, then when those state changes (which does re-render). then the callback function will be after those state changes. **Clarification** the callback will only be executed when those state changes, if a state not listed as a dependency is called and the re-render happens the **callback will NOT be executed** as it is dependent on the states listed in the array. 
+        - This hook is useful watching for state changes to perform some logic and this is similar to event listeners in event handling.
+    - **useContext** is another hook that can be used in function components. In summary we can use it to help get state or values from another component. It's used with the Context API and used in situations where a component is deeply nested in a chain of nested components to help get the state of an ancestor component to that deeply nested component instead of having to pass that state as a prop (prop drilling) through every in between component, since not every component needs that specific state.
 
 ### What are props (React)?
 - A prop is an object with variables that can be used to pass data from a parent component to a child component. We can include props we want to pass down in the child component's element tag.
@@ -133,6 +139,7 @@
 ### How can you break apart the prop object passed into a component into individual variables?
 - **Destructuring** is a JS/TS expression that makes it possible to unpack properties from objects into individual variables. 
 - We can do the same with prop objects as they are objects and so each piece of data passed to child component from a parent can be assign to an individual variable.
+
 
 ```JS
 const [firstName, lastName] = personNameObject;
@@ -151,9 +158,55 @@ const [firstName, lastName] = personNameObject;
 - With that, in class components **states** are mutable in a component by using the constructor method or declaring a field called state, and to change the state we use `this.setState()`.
 - For function components, they don't have states by themselves but can gain states through the use the useState hook.
 
-### What are function components?
-- 
+### What are list and keys?
+- If we want to render a collection of JSX elements, we could loop the array of items that we wanted to create or pass to as part of a JSX element. We can do this looping through the `.map()` function which then we perform some functionality to create each JSX element with the data from the array/list item. As per React, we would also assign a key or  **keys** which are unique/special string attributes to identify uniquely each JSX element in the collection. This identification is helpful if we wanted to know what JSX element have been changed, added, or removed. For deciding what should be a key, it should be either the item in the list or it can be a property of it (if its an object) that uniquely identifies it. 
 
+### What is routing in React?
+- Routing allows for the navigation from one view to another, by changing which components are displayed on the single page in React. Routing essentially is what helps emulate the experience of browsing multiple pages to the end user, when on a single page application where only one page is actually created. 
+- Since routing does involve changing which components are visible in the view, we can assign and determine which components by using URLs in the Route elements and passing the specific component to be render in view to the Route element.
+- To perform or use routing in React we use the react router.
+- The react router or React Router DOM is a dependency that provides several solutions for creating a router in React applications. 
+- From this dependency we can import BrowserRouter which is a JSX element and component that is use to set up routing. Inside of the BrowserRouter component we can nest Routes components and in Routes we can have multiple Route components. 
+    - `BrowserRouter` is the specific router we will used to set up routing
+        - This is meant for the web, whereas `NativeRouter` is for mobile
+    - `Routes` is where we will hold all our routes for our application.
+        - Note: We can have multiple `Routes` components if we consider that we may want to render different view/content in specific parts of the web page but the components in view are not gonna overlap. Think as sidebar content and then we have the main content. 
+    - `Route` is the component where we will have our specific path or route and there's one `Route` for every route in our application. 
+        - We can add the specific component(s) to show up at a specific route by using the `element` attribute to pass in the component we want to render in view.
+
+### What are the two ways to create HTTP requests in React?
+-  We can use either the **Fetch API** or **Axios** to create HTTP requests in React.
+
+### What is Axios?
+- Axios is a popular promise-based library used with NodeJS and your browser to make and send asynchronous HTTP requests to REST endpoints.
+- Axios is supported by most modern browsers and comes with features 
+    - like being able to automatically parse JSON response data, 
+    - has built-in protection again cross-site request forgery,
+    - it can intercept and transform request and response data
+    - and has better error handling.
+
+### What are reasons to use Axios over Fetch API?
+- Axios can cancel, timeout, and interrupt HTTP requests, which Fetch cannot do that easily. Axios automatically translates request/response bodies to and from JSON, whereas we have to explicitly use the `parse()` and `stringify()` to do the same with data being received/sent.
+
+```TS
+// const axios = require('axios');
+// Making an Axios Request
+// HTTP Request made using Axios functions will return Promise objects
+// Hence the then() and catch()
+
+// GET 
+axios.get('urlHere')
+.then((res) => console.log(res))
+.catch((err) => console.log(err));
+
+// POST
+axios.post('urlHere', {
+    data: 7,
+    object: 8
+})
+.then((res) => console.log(res))
+.catch((err) => console.log(err));
+```
 
 ---
 ### What are JavaScript modules (same in TypeScript)?
