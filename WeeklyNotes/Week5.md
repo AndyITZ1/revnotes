@@ -3,19 +3,30 @@
 ## AWS/RDS
 
 ### What is cloud computing?
-- Cloud computing is the practice of using a network of remote servers hosted on the Interent to store, manage, and process data/information, rather than on your local computer
+- Cloud computing is the practice of using a network of remote servers hosted on the Internet to store, manage, and process data/information, rather than on your local computer
 
 ### What is the cloud?
-- The cloud refers to the network of remote servers that are accessed over the Internet, along with the software and databases that run on those servers. 
+- The cloud refers to a network of remote servers that are accessed over the Internet, along with the software and databases that run on those servers. Many companies provide their own "cloud" or group of remote servers that will provide **cloud computing services**.
 
 ### What is AWS?
-- Amazon Web Services (AWS) is a cloud service provider that hosts a collection of hundreds of cloud computing services that provide the building blocks for IT Infrastructure
-- To use AWS individuals or companies must pay a fee, but they only pay for what they use so this is cheaper than 
+- Amazon Web Services (AWS) is a cloud service provider that hosts a collection of hundreds of cloud computing services that provide the building blocks for IT Infrastructure.
+- To use AWS, individuals or companies must pay a fee, but they only pay for what they use so this is cheaper than trying to buy all the hardware and software needed to perform the same actions as AWS.
+
+### What are benefits of using AWS?
+- You only pay for what services you use
+- You can **easily scale** certain services like RDS or EC2 to have more or less storage (highly scalable)
+- AWS is highly available meaning that you can have your services be executed in various places in the world that have AWS servers and are available for those services. 
+
+### What are some services provided by AWS?
+- AWS offers over 200 fully featured services and some them that we may use are:
+    - S3 or Simple Storage Service, is a service that provides **object storage repositories** up to 5000+ TB, which can be good for static data storage.
+    - EC2 or Elastic Cloud Compute is a service that provides scalable computing capacity in the AWS Cloud. This allows user to launch virtual servers, configure security and networking, and deploy applications without needing their own hardware upfront and this can be all managed from a dashboard on the AWS platform. 
+    - Security Groups, these are like a firewall for instances of AWS services, which can restrict traffic in a service by IP, protocols, or ports.
 
 ### What is RDS?
-- RDS or Relational Database Service is a service provided by AWS to create a virtual, scalable, relational database. 
+- RDS, which is the Relational Database Service, which creates a virtual, scalable relational database. Through this service we can have an environment that can host a database and has support for different types of RDBMS, and multiple people can connect to the database using this service.
 
-
+---
 ## React/TypeScript/JS
 
 ### What is NodeJS?
