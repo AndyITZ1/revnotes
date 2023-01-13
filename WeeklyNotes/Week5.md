@@ -84,6 +84,8 @@ npm run build
 - TypeScript XML or TSX is used to create the template or the view for React components. It looks like HTML when written, but has it owns syntax. TSX code is what is injected into the virtual DOM, and then displayed on the browser. 
 - For our TSX elements that need to be returned for one component to be displayed, we wrap all the "returned" elements in one element. The reason why we do this is that when React tries to create all the TSX elements for a component it expects to only create one element and not multiple at the same level. Which can cause a React syntax error to pop up. To avoid this error we wrap all TSX elements into one element and this element can be like a div or a React.Fragment. 
 - Depending on whether you use a div or React.Fragment, you may add an extra DOM element (div).
+- **Unlike regular HTML, JSX/TSX HTML (really just call it TSX/JSX no need HTML) allows for custom attributes (attributes with whatever name)**
+    - While this is true for the most part. We can have "custom attributes" in HTML, but the restriction in HTML is that you have to prefix `data-` before the custom name.
 
 ### What is a single page application (SPA)?
 - A SPA is web application that fits on a single page in the browser. This means that with a single page load the browser will retrieve all the necessary JavaScript/TS, HTML, and CSS code. When we **navigate** between pages, the content of the page is changed however this is being without refreshing the whole page.
@@ -101,7 +103,7 @@ npm run build
  ---
 ### What is the React application architecture comprised of?
 - When creating a React application from the npx command, the folder structure of a React is made up of:
-- A `node_modules` folder which holds all the dependencies a React needs. 
+- A `node_modules` folder which holds all the dependencies a React app needs. 
 - A `public` folder which is a great place to store assets such as images and favicons that maybe utilized in the application.
 - A `src` (source) folder which is where all the source code and important files for the application will be stored. This includes the React components that we will make for the application, the App.tsx, App.css, and any other files that help structure the application. 
 
@@ -115,6 +117,11 @@ npm run build
 - **Components** are essentially a "section" of a webpage that can be displayed or removed by a React application. Examples of components are like the newsfeed section, the ads, the sidebar in Facebook. Each of those can be shown or removed from the view and this is dependent on whether the component for is being used or not. 
 - Components can communicate with each other to create a larger application. Design-wise these components should follow the **single responsibilty principle**, where a component should have responsibility over a single part of application functionality. This means that the component should not be handling or performing various different tasks when utilized. It should be focus on a single functionality of the application that is to be implemented. 
 - Components are designed to be reusable pieces of the user interfaces, which overall is helpful in maintainability and code reusability of the source code. 
+- **Overall for a React component to work it has to return/render a JSX/TSX view of some type.**
+- React components are really just ES6 classes (that extends React.Component) and functions (that return a view made in JSX/TSX) 
+
+### How does immutability in React help?
+- Immutability in things like React component help prevent from state data from being changed directly by other components, which overall helps us create pure components and allow complex features to become easier to implement.
 
 ### What are two types of components in React?
 - There are two types of components that can be used to build the React application, class components and function components.
@@ -193,7 +200,11 @@ const SomeComponent: React.FC<any> = (props: any) => {
 - React allows for components to be nested inside one another which can create an implicit parent-child relationship between the outer and inner components. This eventually leads to concepts of being able to pass data or state from a parent to a child component as props that can be used but is immutable. 
 
 ### What are hooks?
-- Hooks are functions in React that allow you to "hook" into React state and lifecycle methods from within functional components. 
+- Hooks are functions in React that allow you to **"hook" into React state and lifecycle methods from within functional components.**
+- Hooks only work functin components and not class components.
+- Hooks cannot be used inside of other hooks, however it can be called from custom hooks. 
+- Hooks should be called for the top level of a React component, as the component will know what order hooks will be called, if we decided to call hooks elsewhere (except custom hooks), React would failed to associate local states with the expected hook order. This can lead to bugs.
+- **With hooks we can manage state in function components (useState).**
 
 ### What are example of hooks?
 - Common hooks used are useState and useEffect:
@@ -211,7 +222,12 @@ const SomeComponent: React.FC<any> = (props: any) => {
 
 ### What are props (React)?
 - A prop is an object with variables that can be used to pass data from a parent component to a child component. We can include props we want to pass down in the child component's element tag.
-- Props sent to a child component are typically the state object of a parent component.Due to that, props are designed to be immutable to prevent a parent component's state from being changed by a child component. 
+- Props sent to a child component are typically the state object of a parent component. Due to that, props are designed to be immutable to prevent a parent component's state from being changed by a child component. 
+
+### What is the difference between state and prop?
+- State is the data/information about a component that is stored within a component and this is what we send from the parent component as "props" for the child component. Props is the data/information coming into a component from another component (parent) or outside source. We can defined props for a child component via putting data binding the data in attributes in the child component's opening tag.
+- **State is the current state of the component, while Props is passed into the component.**
+
 
 ### How can you break apart the prop object passed into a component into individual variables?
 - **Destructuring** is a JS/TS expression that makes it possible to unpack properties from objects into individual variables. 
@@ -228,12 +244,24 @@ const [firstName, lastName] = personNameObject;
 ### What is "lifting state up"?
 - "Lifting state up" is a way to update a state which is shared and utilized by multiple components. With React data flows top down from parent to child in the form of states and props. However when we want to have a state that has the same information across multiple components that utilizes it, we need the parent holding the state, to have the state updated to reflect any possible changes to the state that happens in a child component. While props are immutable meaning a child cannot change a props object it receive which inherently would affect a parent's state, we can pass functions as a prop object. This function passed in can have code that edits the state stored in the parent, which lifts the state up from the child to parent component.
 - An example of how we would use lifting state is the shopping cart of an e-commerce website. We can have two components one to add items to the cart and one to checkout the cart. In terms of state we are referring to the list of items in a cart. We need to pass state to each of these component as each component does need the list state to perform its functionality. And they both should see the same list. So when we go to add an item to the cart, the add component should be able to edit this list state. So we can pass a special mutator function to edit the state as a prop for the add component. For the checkout component we only need to pass it a just the list state and no necessary mutator function. Everytime we add to the cart the list should be updated and be ready for the checkout component to process everything in the list. So we are lifting state from the add component to the parent component holding the list state.
+- Lifting state can cause complications for React applications in that lifting state is trying to move a state so it's accessible to many state, but when that state is nested through many components then the process of lifting state can really make the application become more complicated in terms of now having to move state through various components.
+    - This could be that we need to move that state into components that don't need it to just pass it on and similarly moving state to a commonpoint where that common point is a component that doesn't serve the purpose of holding that state can cause flaws in following design principles like single responsiblity. 
 
 ### What are states (React)?
 - State objects is how we store information/data within a component this similar to variables in a class. But the difference is that State objects are easily passable to child components. 
 - States are encapsulated by components which means they can't be directly accessed or manipulated by external components to the component they are contained in. 
 - With that, in class components **states** are mutable in a component by using the constructor method or declaring a field called state, and to change the state we use `this.setState()`.
 - For function components, they don't have states by themselves but can gain states through the use the useState hook.
+- While it is true **states** are mutable, **states** are to be treated "immutable" in that we shouldn't be changing state directly for any reason and that it only updates based on certain conditions based on rendering and input. 
+
+### What are events in React?
+- Events in React are very similar to ones utilized in regular HTML, however there are slight differences between HTML ones. Events in general are scenarios that occur because some action occurring and for the most part this action it is incurred by end users. Examples of this include clicking a button, hovering over an element, and keyboard input.
+- So what are differences:
+    - React events are **named using camelCase**, whereas in HTML they are all lowercase
+        - React: `onClick` vs HTML: `onclick`
+    - In JSX/TSX you pass just the function name, however in HTML you use strings with the function call
+        - React: `={funcName}` vs HTML: `="funcName()"`
+    
 
 ### What are list and keys?
 - If we want to render a collection of JSX elements, we could loop the array of items that we wanted to create or pass to as part of a JSX element. We can do this looping through the `.map()` function which then we perform some functionality to create each JSX element with the data from the array/list item. As per React, we would also assign a key or  **keys** which are unique/special string attributes to identify uniquely each JSX element in the collection. This identification is helpful if we wanted to know what JSX element have been changed, added, or removed. For deciding what should be a key, it should be either the item in the list or it can be a property of it (if its an object) that uniquely identifies it. 
@@ -299,7 +327,26 @@ axios.post('urlHere', {
     - We have **more intuitive communication** between components and non-hierarchical data
     - Leveraging/utilizing unidirectional as an advantage and not an obstacle.
 
+### What is conditional rendering?
+- **Conditional rendering** is just applying JS/TS conditional operators and clauses to render views only when a certain state/condition is met.
+- When doing inline conditions with TSX elements, note that `true && <div></div>` will show the element, but if `false && <div></div>` the TSX element won't show.
+    - Another thing is that falsy expressions may show the falsy value despite the boolean values never showing with TSX (ex: 0)
+```TSX
+// Examples of Conditional Rendering
 
+if (someState > 0) {
+    return <div>someState</div>
+}
+return <div>falseState</div>
+
+
+// Inline
+return (
+    <div>
+        {stateCondition && <h2>Appear</h2>}
+    <div>
+)
+```
 ---
 ### What are JavaScript modules (same in TypeScript)?
 - JS modules are self-contained units of functionality that can shared and reused across project files. In essence, code in one JS or TS file is a module and to use code from that file, we need import that module. 
@@ -481,3 +528,20 @@ function raiseError(message: string): never {
 - Getters are functions used to retrieve a class's field data, whereas `readonly` is a modifier keyword
 - The purpose of getters is to get data that isn't retrievable normally by calling the fields name from the object.
 - `readonly` allows for the calling of the field's name from the object but does not allow changes to be made to the field. 
+
+### What are language/feature differences between TypeScript and JavaScript?
+- While both languages can perform OOP, please note that you really can't say that TypeScript is better for OOP as JS has pretty the much same features for OOP as TS.
+- TypeScript has *static typing*, **strict typing**, and **strong typing**. Strong typing relates to the fact that we have declare the data type of a variable when the variable is declared. Strict typing applies to that once declared a variable cannot change its type (therefore cannot store values of any other data type). 
+- TypeScript also points out compilation errors when developing, this overall reduces the chances of runtime errors being encounter. 
+- TypeScript enhances encapsulation through the use of access modifiers (which don't exist in JS), access modifiers like in Java limit the scope data members can be accessed from.
+
+
+### What's the difference between a library and a framework?
+- Libraries provides functionalities that we as the user can choose and pick what we want to utilize in our project.
+- Frameworks provides already written underlying code and we provide it with the necessary information for it to execute. 
+- The difference between the two is that libraries have defined functions and work the way they are and we have more control over how we setup a project and we just functions we need from the library.
+- Frameworks have "unfinished" functions in the sense that they do control how the project is setup and to finish the functionality we supply our own code where it is required by the function. The project structure in terms of setup will tend to look the same.
+- **A library is not a framework because we are able to call it in our code, can be integrated into a part of the UI.**
+
+
+## Questions from TypeScript/React 

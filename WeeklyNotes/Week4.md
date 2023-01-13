@@ -69,6 +69,14 @@
 - `<datalist>` element specifies a list of pre-defined options for an `<input>` element, this can be seen in scenarios where you are typing something a dropdown list is shown with some already completed values that relatively complete the value you tried to type. And options are again defined by `<option>`
 - `<label>` element can be used to give a specific text label to an input field
 
+### What are ways to validate forms in HTML?
+- `required` attribute ensures that a user is forced/required to enter something for the input field
+- `min` and `max` are attributes in which can be assigned numbers to limit the range of an input value (numeric), so if the number goes out of bound then the input is rejected
+- `type` attribute also plays a role in that only certain input can be allowed in certain types, if the type is date or number, then it you can't put anything besides those types of values
+- `pattern` attribute restricts the way something is entered, in the sense that it should matched the regex pattern given. This can be seen with emails in forms.
+
+
+
 ### What is HTML5 and how is it different from past versions of HTML?
 - HTML5 otherwise known as HTML 5.0 is current standard version of HTML used today in most websites. 
 - HTML5 introduced a lot of new features when using HTML including **DOCTYPE declaration**, character encoding declaration using the `<meta>` element (to allow coverage of being able to use "pretty much" every character in the world), new semantic tags, and more media elements.
@@ -282,10 +290,17 @@ div~p {
     - **Null**, absence of value
     - **Undefined**, value when a variable has not been assigned anything and only exists when a variable is declared.
     - **Object**, objects are collections of key/value pairs, and are written in {}.
-    - **Symbol**, were introduced in ES6, though not used often, are objects with guaranteed to be uniqued when created and can unique properties that are hidden and prevents collision of other keys that might be added to an object. However, the same Symbol object wiil return if you provide a key when searching for a Symbol. 
+    - **Symbol**, were introduced in ES6, though not used often, are "objects*" with guaranteed to be uniqued when created and can unique properties that are hidden and prevents collision of other keys that might be added to an object. However, the same Symbol object wiil return if you provide a key when searching for a Symbol. 
 - There are other data types like BigInt (used to hold large integers beyond regular numbers), NaN(not a number), which is a value returned when a math operation goes wrong.
 - We can also identify a value's data type using the `typeof` keyword
 - Objects can have subtypes like Arrays (which are like Java ones, but difference), which can hold any number of different data types and their length is not fixed, and functions are also objects but with more functionality.
+- Primitive data types: Number, Boolean, String, Undefined, Null, Symbol
+    - Please note that String is not an object its the data type used to represent character-based data. (Strings however are objects in Java, but not JS)
+    - Char doesn't exist in JS
+
+### How are arrays in JS different from Java arrays?
+- JS arrays are more similar to ArrayLists in Java in that they both are resizable. Similarly JS arrays do start with index 0, use [] syntax for accessing, length of array is always last index + 1 as with Java Arrays. However being resizable, any index greater than or equal to the length of the array returns `undefined` when accessed. Along with that, if that index is assigned a value than the length is increase to include that value, where all potential indexes in between are filled "undefined". 
+
 
 ### What are JS operators?
 - JavaScript have most operators similar to Java like arithmetic, logic, assignment, comparison, and ternary operators. However a couple of differences are like the `===` operator which is only in JS and it compares types **AND** values, while regular `==` compares only values.
@@ -357,6 +372,7 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 - It can refer to the global Object (the window object)
 - It can be used in event handlers where it represents the HTML element that receives the event
 - It can refer to an object involved in **object method binding** (like a constructor)
+- In general **this** refers to the invoking function or object to which it is attached to, and functions can be objects
 
 ### What is JS prototypal inheritance?
 - All JS objects have a prototype, which is implemented through the `__proto__` property, which is used to define inheritance in JS
@@ -368,7 +384,7 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 - Like in Java, classes can have constructors 
 
 ### What is DOM?
-- DOM is the Document Object Model, which is created when JS is attached to the HTML document. The HTML document with all of its elements is converted into a usable JS object called `document` that can be manipulated/interacted in JS code. 
+- DOM is the Document Object Model, which is an object representation of an HTML document. The object that is usable is the `document` object which is created when JS is attached to the HTML document. The HTML document with all of its elements is converted into a usable JS object called `document` that can be manipulated/interacted in JS code. 
 - The DOM is created to be like a "tree" where the root element `<html>` is the root of that tree and similarly all other HTML elements branches from the root. Each element in the HTML is an object in the DOM.
 
 ### What are different ways we can interact with HTML through DOM?
@@ -392,6 +408,8 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
     - event is the type of event being listened for
     - function is the function/code to run when the event happens
     - useCapture is the boolean value that is optional and is used to determine if the event handler should use **bubbling** or **capturing** for event propagation. This bubbling/capturing refers how to handle situations where multiple event handlers are listening to the same event (which one should run their function first). By default, the value is false (bubbling) if not specified.
+- If an EventListener is needed to be removed, then the removeEventListener() is used.
+
 
 
 ### What is event propagation?
@@ -436,6 +454,7 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
 - `await` is used to make an `async` function pause until a promise is returned.
     - `await` keyword can only be used in `async` functions.
     - Note that we can use `await` in front of non-Promise values, however `await` converts the value to a resolved Promise and waits for it. This conversion doesn't affect the value identity as long as it doesn't have a `then` property that is callable.
+
 ### What are timing events?
 - Timing events are used to automate or run task after certain intervals of time. 
 - `setTimeout` takes a function and delays it call for some milliseconds. `setTimeout(function, 2000)`
@@ -452,6 +471,10 @@ console.log(2 * "3" + 2); // returns 8, in terms precedence rules will still app
         - `.prototype`
         - `.length`
     - Cannot assign to object properties that are non-writable data/getter-only accessor/new property on a non-extensible object.
+
+- Eliminates some JavaScript silent errors by changing them to throw errors.
+- Fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that's not strict mode.
+- Prohibits some syntax likely to be defined in future versions of ECMAScript.
 
 
 ### What are template literals?
@@ -475,3 +498,40 @@ let obj = {
 const cloneObj1 = {...obj};
 ```
 
+---
+## Agile 
+
+### What is story pointing?
+- **Story points** are units of measuring the effort of work needed to fully implement a product backlog. This helps teams understand how much they can achieve and build towards a solution. This also brings value to the center of attention versus worrying about time. Dates can create emotional attachment, points really don't as their isn't a "deadline" to think about. Story points can be assigned once we know the difficulty of features and points are used to scale those. This process rewards team members for solving problems based on difficulty and not time spent.
+
+head is needed an in HTML document, head setups the HTML page in terms of metadata
+
+block vs inline
+- block elements take up the width of the whole screen
+- inline elements take up only the space width they use. 
+- block : div, p will generate on a new line and folloing
+
+var: global/function scope
+let: local/block scope
+
+props are just values pass from state to child
+state are specific variables that are utilized by hooks 
+
+id and class selectors 
+
+
+fetch returns Promise object 
+callback functions are functions passed in as arguments to other functions.
+
+React hooks leverages states meaning we would rely on state changes to know to do some stuff
+
+== & ===
+- type coercion
+
+JavaScript vs TypeScript
+TypeScript helps with abstraction 
+helps with encapsulation through has access modifiers limiting scope at which data member can be accessed.
+readonly - can be argued or can said as optional specifier
+
+making div appear
+- if statement should set up returning or string for returning div, and empty "string" for div stuff
