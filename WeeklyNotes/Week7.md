@@ -185,7 +185,7 @@ Containers
     - Containers should ideally serve one purpose and applications should be decoupled as much as possible
     - Having the least number of "ultimate layer" for an image possible
         - defined by different commands in the dockerfile
-
+- Loose coupling is separating the applications from being co dependent with each other too tightly 
 
 ## AWS
 
@@ -235,6 +235,36 @@ Containers
     - Bucket settings, uncheck Block Public Access if needed
     - Create bucket
 
+### What is cloud computing?
+- Cloud computing is the delivery of compute power, database storage, applications, and other IT resources over the Internet. This is usually from a cluster of servers sometimes called the cloud, that is provided by a company offering the computing services. An example is Amazon Web Services which has more than 200+ services it offers at a charge of how much you use.
+
+### What are the advantages of cloud computing?
+- Cloud computing can allow us to trade captial expense for variable expense. This simply means we aren't or don't need to pay as much for expensive infrastructure to be set up, rather we pay an inexpensive amount for that same infrastructure provided and only pay what we used.
+- We don't have to worry so much about storage capacity as we can have options with cloud computing on how much storage we need.
+- We eliminate overhead cost of maintaining data centers 
+
+### What are security groups?
+- A security group acts a virtual firewal for things like EC2 instances in AWS to control incoming and outgoing traffic based on their IP address.
+    - With security groups you can control rules to filter out traffic based on protocols and ports
+    - Security groups are stateful in that if you a request from your EC2 instance, that request is allowed to flow regardless of inbound security group rules and repsonses to inbound traffic are allowed to flow out regardless of outbound rules
+    - You can add rules to each security groups that allow traffic to or from its associciated instances. 
+        - You can change the security group for an instance when an instance is running or stopped
+
+### What is AWS RDS?
+- Amazon Relational Database Service is web service that makes it easy to setup, operate and scale a relational database in the AWS Cloud. 
+- RDS benefits are beingn cost-efficient, having resizable capacity for industry standards, and manages common database administration tasks.
+- RDS automates expensive and time consuming tasks such as creating backups, patching software, automated failure detection, and recovery.
+- You can control who can access your RDS by using AWS Identity and Access Management (IAM) to define users and permissions.
+
+### Why use RDS?
+- AWS offers 15 database engines including relational, key-value, document in memory and more types of databases
+- With RDS, you don't need to worry about database management tasks such as server provisioning, patching, setup, configuration, backups, or recovery as RDS will manage this for you.
+- RDS is a relational database service organizing data into tables in rows and column
+
+### What is AWS Region?
+- AWS Region is a geographical location with a collection of availability zones that each map to a physical data center in that region.
+- AWS Regions are important to handle workloads that latency-sensitive and need to be near users in a geographical area. 
+- You can find two or more availability zones in an AWS Region and each zone is a separate data center that run on their independently to reduced the likelihood of two zones failing simultaneously in a region. 
 
 ## DevOps
 
@@ -243,6 +273,7 @@ Containers
 - **DevOps** stands for Development and Operations, is a methodology/combination of philosophies and practices that is used to automate and integrate processes between software development and IT teams. It works in the concept of having a team composed of both developers and IT operations working together throughout a product's lifecycle, in order to increase the speed and quality of software deployment. Basically it combines development, deployment, and maintenance of code into a streamlined process. 
 - Tools used in **DevOps** include ones used to tackle DevOps fundamentals like **continuous integration, continuous delivery, automation, and collaboration**. 
 - The goal of DevOps is to expedite the app development lifecycle through automation workflows and measuring application performance continuously. 
+- **DevOps is a set of practices designed to combine the development, deployment, and maintenance of code. The primary goal is to expedite the lifecycle of application development, particularly through automation.**
 
 ### What are the steps/phases for DevOps?
 - **Source Code Control**: This involves pushing and pulling written source code to a repository for version control
@@ -266,6 +297,7 @@ Containers
 - Continuous Integration is a software development process of regularly and consistently merging code into a central repository and reviewing new code to ensure proper integration with the previous established code base. 
 - You may use things like Github, Gitlab to perform this process.
 - In general the central repo should be a version control software which provides the benefit of being able to track changes in code, allow for code to be merged and/or rollbacked if necessary. The more code is committed or merged the less conflicts with integrations arise. 
+- **Continuous Integration is the process of software development where developers regularly and consistnently merge code into a repository and reviewing the new code to ensure it integrates properly with the the previous established code base**
 
 ### What are the benefits to having Continuous Integration?
 - **Continuous Integration** establishes the foundation for an automated DevOps pipeline with the following benefits:
@@ -285,6 +317,7 @@ Containers
 ### What is Continuous Deployment?
 - **Continuous Deployment** is the process of deploying software to production environments as long as changes are tested for stability and correctness, and this testing is done automatically. When **Continuous Deployment** is achieved (after Continuous Delivery), every committed change to the code base creates and deploys a new build to the production environment. 
 - This is the ultimage goal for establishing "a true DevOps" pipeline as it ensures all steps for creating a product including code creation, testing, building and deployment are automated and work seamlessly together. 
+- **Continuous deployment is the automated process of deploying code to production environments immediately upon the ensurance that the software source code and build has tested for stability and correctness automatically.**
 
 ### What are risks/costs to Continuous Deployment?
 - Creating/Establishing a Continuous Deployment pipeline requires a more substantial investment in the engineering and testing culture
@@ -298,7 +331,7 @@ Containers
 - Increased team communication and regular streams of improvements are held in high regard by customers
 
 ### What is Continuous Delivery?
-- **Continuous Delivery** is the paradigm in which building/management/ and testing of produced software is automated such that deployments can happen at the push of button. **Continuous delivery** is only achieved when code integration, testing and product building is automated as this allows for frequent deployments.
+- **Continuous Delivery is the paradigm in which building/management/ and testing of produced software is automated such that deployments can happen at the push of button.** **Continuous delivery** is only achieved when code integration, testing and product building is automated as this allows for frequent deployments.
 - Frequent deployments may not always be the case if you are following some regular schedule for deployment
     - Also the deployment process may be kept manual to allow for final user acceptance tests to be performed as a final safety check to ensure business needs are met. This is due to the difficulty and costof creating tests to evaluate user experience
 
@@ -311,8 +344,103 @@ Containers
     - With a pipeline the deployment process is more predictable in that we kind of know when we are deploying, so development team can focus on the production of code rather than the steps to deploy the new codebase
 - Frequent Feedback
     - With increasing the efficiency of producing code, more smaller and incremental changes can be applied more often and we can always rollback changes if something errors
+    - By having deployment ready at a button and more releases, this accelerates the communication and feeback loop with client/product owners. 
+
+### What are costs/considerations for Continuous Delivery?
+- Requires a strong foundation with Continuous integration culture and test suite coverage
+- The final deployment must still be automated which is an additional cost, Though the trigger to begin the process is manual this can still cause slowdown for development
+- Communication of incomplete features and backlog must be maintained rigorously to communicate expectations to client and development team.
+
+### What is the flow of automation processes for DevOps lifecycle?
+- Continuous integration begins the CI/CD process, where developers can work independently on separate individual branches to implement small changes. With versioning tool they can save snapshots of their code and rollback code if their push has errors. The idea is though they only to submit "workable" small code and that upon uploading this code to something Github they can check for merge conflicts and handle that. Along with that the frequency of pushing code allows for others to get the latest code to work off of. Another thing is that the code isn't just being pushed and also built which makes it testable always. But the prime goal is that building the code may reveal errors as well. So again continuous integration includes that which even revision will trigger an event to automate building and testing.
+- Continuous Delivery is almost an extension of continuous integration in that it does automatically deploy all code changes to a testing environment after the build stage. Continuous delivery requires continuous integration and it automates the testing for the code and have it ready for deployment at the click of a button. However this means that there can be a delay in deployment so in order to avoid that we need Continuous deployment which works to automate the deployment process without needing human intervention to approve something for deployment after testing.
+
+### What are some DevOps tools?
+- Mostly DevOps can only be efficient in a highly automated environment for larger teams. So we may utilized some of the many automated tools made available for DevOps teams.
+- **Jenkins** - automation server, which can be used to automate building/testing/deployment of software
+- **TravisCI** - Continuous Integration service that automates builds and unit testing
+- **CircleCI** - Easily creates pipelines for CI/CD within Docker
+- **SONAR** - quality analysis tools
+
+### What is Sonar?
+- Sonar is a set of quality analysis tools (**Sonar Cloud, Sonar Qube, Sonar Lint**) used to increase the readability, security, and maintainability of code. Utilizing these tools can help with producing higher quality code and provide standardization between developers, which can play a vital role in integrating code. 
+- Code Quality Analysis tools are programs designed to expose errors and "code smells"
+
+### What are code smells?
+- Vulnerabilities
+    - Data security issues
+- Bugs
+    - Issues with functionality of code
+- Maintainability issues
+    - Confusing / hard to maintain code
+    - Repeated instances of code
+    - Unused imports
+    - Empty code blocks
+    - Unaddressed automated code comments
 
 
+### What is Sonar Cloud?
+- Sonar Cloud is a cloud-based code review solution which can be configured to review code within a cloud repository like Github.
+
+### What is Sonar Qube?
+- Sonar Qube is a code review tool bulid to work on a centralized server/integrated into a development pipeline. It has increased flexibility and configuration options which can make it seem powerful.
+
+### What is Sonar Lint?
+- Sonar Lint is a free open-source linting tool. A linting tool/linter is a software tool which when integrated with an IDE, can provide increase feedback to the developer. While traditional IDEs may have their own built-in linting tools to find code syntax errors and exceptions, Sonar Lint can provide further suggestions with recognition of "code smells"
 
 
+### What is Jenkins?
+- **Jenkins** is a self-contained, open source automation server. It can be used to automate the building, testing, and deployment of software. 
+- It can be installed standalone with native packages or using Docker.
+- In Jenkins, projects or jobs are used utilized. Where jobs are repeatable set of steps automating a task such as building/testing or deploying. It's possible for a job to be triggered manually by REST endpoints or a push to a repository or even by another job. When a job is triggered Jenkins creates a build of the project.
+- Jobs statuses which are called Health are represented by weather conditions and are also dependent build statuses.
+    - Build statuses are traditional in having a colored circle that represents the success/failure of a build. 
 
+### What are advantages to using Jenkins?
+- Jenkins is completely open-source/ free to use, supports a variety of OSes, supports all major source code repos like Github, Gitlab and supports/creates pipelines in general after its configuration process
+
+### What are disadvantages to using Jenkins?
+- Jenkins can be hard to setup, often requires a custom JenkinFile with its own syntax for configuration or putting source code into the Jenkins environment. 
+- There are alternatives that are easier to use than Jenkins for pipeline automation but they aren't free
+
+### What are terminology used in Jenkins?
+- **Artifact** is an immutable file that is generally your built/packaged application that is in a .jar or .war file 
+- **Job** refers to a single set of instructions for what Jenkins should do with your **artifact**. Pipelines are often made with testing **jobs** to make sure your application is working as intended.
+- **Plugin** is an extension for Jenkins functionality, where we can have a Github plugin which lets Jenkins know when a push was made to the repository. 
+- **Webhook** is a "user-defined HTTP call" which will trigger one web application when an event happens to notify another application of an event. So this can be like when code is merged into our Github and thus the webhook will notify Jenkins when code is merged and triggering Jenkins to create a new pipeline build and deploy it to the end user. 
+
+### What does Jenkins do?
+- In summary, it builds and automates our DevOps CI/CD pipeline. So we can have code in which Jenkins will use to do things like compiling the source code, packaging it, moving that code as a file somewhere, then testing it, and then finally deploying or basically push up to a repo for a merge. And Jenkins itself does not do on its own but it uses other software and technologies to do it such as Git and Maven to technically do it and if one of them fails to do a certain task like if Maven found a problem with testing then overall Jenkins can't do anything else like deploying because the testing failed.
+
+### What is a pipeline?
+- A **pipeline** is a process that drives software development in a path of building, testing and deploying code. This can be called CI/CD pipeline, by automating the processes of the DevOps software developments lifecycle. 
+- The end goal of a CI/CD or automated pipeline is to minimize human error and maintain a consistent process for how software is released. Along with that, we can also decrease the downtime rate and speed up the rate at which code is release
+- We can utilize DevOps tools to further enhance this process for performing actions like compiling code, running unit tests, perform code analysis and more. 
+
+### What are build statuses for Jenkins?
+- Blue represent successful build
+- Yellow represents unstable build, this can usually mean some tests failed
+- Red represents failure build
+- Grey represents no builds or aborted build
+
+### What are weather conditions for job statuses?
+- Sunny - More than 80% of runs passing
+- Partially Sunny - 61-80% passing
+- Cloudy - 41%-60% passing
+- Raining - 21-40% passing
+- Stormy - less than 21% passing
+
+
+### What's inside a jenkinsfile?
+- A `jenkinsfile` consists of agents, stages, and steps.
+- Agents inform Jenkins where and how to execute the pipeline. They are required at the top level of a pipeline block but also can be optionally used at the state level to define stage-level usage.
+- **Stages** are a sequence of one or more individual custom stage directives. Each stage consists of multiple steps that are performed by the a Jenkins pipeline
+
+### What are stage blocks?
+- Stages blocks are required to list each individual stage directive. Each pipeline should only contain a single `stages` block and the stages block must contain at least one stage directive, however it may contain multiple stage directives.
+
+### What are stage directives?
+- A stage directive contains one or more steps and is named using a string parameter
+
+### What is a step?
+- A step is a specific action taken by a Jenkins pipeline and are contained within `steps` block which do not require parameters and may contain a script block to define some behavior.
